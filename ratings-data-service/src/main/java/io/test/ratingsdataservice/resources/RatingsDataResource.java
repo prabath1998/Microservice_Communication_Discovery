@@ -1,5 +1,6 @@
 package io.test.ratingsdataservice.resources;
 
+
 import io.test.ratingsdataservice.models.Rating;
 import io.test.ratingsdataservice.models.UserRating;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Arrays;
 import java.util.List;
+
 
 @RestController
 @RequestMapping("/ratingsdata")
