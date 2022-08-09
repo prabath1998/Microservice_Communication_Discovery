@@ -30,21 +30,18 @@ public class MovieCatelogResource {
     @RequestMapping("/{userId}")
     public List<CatelogItem> getCatelog(@PathVariable("userId") String userId){
 
-        UserRating ratings = restTemplate.getForObject("http://localhost:8083/ratingsdata/users/"+userId, UserRating.class);
+        UserRating ratings = restTemplate.getForObject("http://ratings-data-service/ratingsdata/users/"+userId, UserRating.class);
          return ratings.getUserRating().stream().map(rating -> {
-             Movie movie =  restTemplate.getForObject("http://localhost:8082/movies/" + rating.getMovieId(), Movie.class);
-
-//             Movie movie = webClientBuilder.build()
-//                     .get()
-//                     .uri("http://localhost:8082/movies/" + rating.getMovieId())
-//                     .retrieve()
-//                     .bodyToMono(Movie.class)
-//                     .block();
-
+             Movie movie =  restTemplate.getForObject("http://movie-info-service/movies/" + rating.getMovieId(), Movie.class);
              return new CatelogItem(movie.getName(),"Description",rating.getRating());
          }).collect(Collectors.toList());
-
-
-
     }
 }
+
+//    Reactive way using web client
+//    Movie movie = webClientBuilder.build()
+//            .get()
+//            .uri("http://localhost:8082/movies/" + rating.getMovieId())
+//            .retrieve()
+//            .bodyToMono(Movie.class)
+//            .block();
